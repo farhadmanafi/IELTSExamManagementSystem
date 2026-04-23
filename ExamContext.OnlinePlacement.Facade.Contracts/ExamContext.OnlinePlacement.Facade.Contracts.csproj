@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExamContext.OnlinePlacement.Aplication.Contracts\ExamContext.OnlinePlacement.Aplication.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

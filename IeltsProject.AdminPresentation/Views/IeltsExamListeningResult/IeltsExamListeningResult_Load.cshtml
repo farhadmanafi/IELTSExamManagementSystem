@@ -1,0 +1,84 @@
+﻿
+<div class="card card-custom">
+    <!--begin::Advance Table Widget 3-->
+    <div class="card card-custom card-stretch gutter-b">
+        <!--begin::Header-->
+        <div class="card-header border-0 py-5">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label font-weight-bolder text-dark">جزئیات نتایج آزمون Listening</span>
+                @*<span class="text-muted mt-3 font-weight-bold font-size-sm">نمایش همه</span>*@
+            </h3>
+            <div class="card-toolbar">
+
+            </div>
+        </div>
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="card-body pt-0 pb-3">
+            <!--begin::Table-->
+            <!--**********************datatablw search**************-->
+            @*<input type="hidden" name="CustomerId" value="@ViewBag.CustomerId">
+                <input type="hidden" name="IeltsExamId" value="@ViewBag.IeltsExamId">*@
+            <table id="DT_IeltsExamListeningUserScoreDetailList" class="table table-bordered " data-url="@Url.Action("IeltsExamListeningUserScoreDetailData", "IeltsExamListeningResult", new { Id = ViewBag.IeltsExamParticipantsId })">
+                <thead>
+                    <tr>
+                        <th>سوال</th>
+                        <th>جواب کاربر (گزینه ای)</th>
+                        <th>درست / اشتباه</th>
+                        <th>جواب کاربر (نوشتاری)</th>
+                    </tr>
+                </thead>
+            </table>
+            <!--end::Table-->
+            <!--****************************************************-->
+            <!--end::Table-->
+        </div>
+        <!--end::Body-->
+    </div>
+
+    <!--end::Advance Table Widget 3-->
+    @if (ViewBag.HasListeningScore == false)
+    {
+        <form method="post" asp-action="AddScore" asp-controller="IeltsExamListeningResult">
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>نمره انتخابی</label>
+                        <input type="hidden" name="CustomerId" value="@ViewBag.CustomerId">
+                        <input type="hidden" name="IeltsExamParticipantsId" value="@ViewBag.IeltsExamParticipantsId">
+                        <select name="ListeningExamScore" class="form-control" asp-items="@ViewBag.Scores"> </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer d-flex justify-content-between">
+                <button type="submit" class="btn btn-light-primary font-weight-bold">ثبت نمره</button>
+                <a href="@Url.Action("IeltsExamParticipantResult_Load", "IeltsExamResult", new { customerId=ViewBag.CustomerId, ieltsExamParticipantsId= ViewBag.IeltsExamParticipantsId })" class="btn btn-outline-secondary font-weight-bold">بازگشت</a>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div style="text-align:center">
+            <div class="alert alert-custom alert-outline-info fade show mb-5" role="alert">
+                <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                <div class="alert-text">نمره شما در این آزمون  <strong style="font-size:medium">@ViewBag.ListeningScore</strong>  ثبت شده است</div>
+                <div class="alert-close">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <a style="float:left" href="@Url.Action("IeltsExamParticipantResult_Load", "IeltsExamResult", new { customerId=ViewBag.CustomerId, ieltsExamParticipantsId= ViewBag.IeltsExamParticipantsId })" class="btn btn-outline-secondary font-weight-bold">بازگشت</a>
+    }
+
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@section scripts{
+    <script src="~/DataTableScripts/ListeningExam/IeltsExamListeningUserScoreDetailDataTable.js"></script>
+}
+
+
+

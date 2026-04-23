@@ -1,0 +1,314 @@
+﻿@*
+
+    <div class="row">
+    <div class="col-md-12">
+    <div class="card card-custom p-6">
+    <div class="card-body">
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="d-flex justify-content-between border-top mt-5 pt-10">
+    <div>
+    <button type="button" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-submit">Submit</button>
+    </div>
+    </div>*@
+
+@using Ielts.Common.GeneralClass
+@model IeltsProject.Presentation.Models.IeltsListeningExamViewModel
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <span class="card-icon">
+                <i class="flaticon2-chart text-primary"></i>
+            </span>
+            <h3 class="card-label">Listening Exam</h3>>
+        </div>
+    </div>
+    <div class="card-body" id="bodyDiv">
+        <div class="row justify-content-center">
+            @if (ViewBag.HasError == true)
+            {
+                <div class="col" style="text-align:center">
+                    <div class="alert alert-custom alert-outline-danger fade show mb-5" role="alert">
+                        <div class="alert-icon"><i class="flaticon-danger"></i></div>
+                        <div class="alert-text">@Html.ValidationMessage("IeltsExamListeningPageException")</div>
+                        <div class="alert-close">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                using (Html.BeginForm("IeltsExamListeningPage", "IeltsExamListening", FormMethod.Post, new { @class = "col-md-12 form" ,id="IeltsExamListeningPage" }))
+                {
+                    int m = 0;
+                    var GroupByListeningExamSection = Model.IeltsListeningQuestionViewModel.OrderBy(a => a.ListeningExamSectionOrderNo).GroupBy(a => a.ListeningExamSectionId).ToList();
+                    int GroupByListeningExamSectionCount = GroupByListeningExamSection.Count();
+                    Guid GroupByListeningExamSectionCurrent = GroupByListeningExamSection[m].Key;
+
+                    int n = 0;
+                    var GroupByListeningExamQuestionBlock = Model.IeltsListeningQuestionViewModel.Where(a => a.ListeningExamSectionId == GroupByListeningExamSectionCurrent).GroupBy(a => a.ListeningExamQuestionBlockId).ToList();
+                    int GroupByListeningExamQuestionBlockCount = GroupByListeningExamQuestionBlock.Count();
+                    Guid GroupByListeningExamQuestionBlockCurrent = GroupByListeningExamQuestionBlock[n].Key;
+
+                    <input type="hidden" name="ListeningExamId" value="@Model.ListeningExamId" />
+                    <input type="hidden" name="IeltsExamParticipantId" value="@Model.IeltsExamParticipantId" />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex flex-column-fluid">
+                                    <div class="container">                                        
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <!--begin::Advance Table Widget 3-->
+                                                <div class="card card-custom card-stretch gutter-b">
+                                                    <!--begin::Header-->
+                                                    <div class="card-header border-0 py-5">
+                                                        <h3 class="card-title align-items-start flex-column">
+                                                            <span class="card-label font-weight-bolder text-dark"> Listening Voice</span>
+                                                        </h3>
+                                                    </div>
+                                                    <!--end::Header-->
+                                                    <!--begin::Body-->
+                                                    <div class="card-body pt-0 pb-3">
+                                                        <div class="row">
+                                                            <div class="col-xl-12">
+                                                                <div class="form-group fv-plugins-icon-container" style="text-align:center">
+                                                                    @{
+                                                                        var src = "https://adminpanel.bpvielts.com" + @Model.VoiceSource; 
+                                                                    }
+                                                                    <audio class="audio" id="audio" controls autoplay>
+                                                                        <source src="@src" type="audio/mpeg">
+                                                                        Your browser does not support this audio.
+                                                                    </audio>
+                                                                    <br />
+                                                                    <input class="btn btn-info btn-sm" onclick="playAudio()" value="Play"/>
+                                                                    <style>
+                                                                        .audio {
+                                                                            pointer-events:none;
+                                                                            color:#AAA;
+                                                                            background:#F5F5F5;
+                                                                        }
+                                                                    </style>
+                                                                    <script>
+                                                                         function playAudio() {
+                                                                             var audio = document.getElementById("audio");
+                                                                             audio.play();
+                                                                            }
+                                                                    </script>
+                                                                    <div class="fv-plugins-message-container"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Body-->
+                                                </div>
+                                                <!--end::Advance Table Widget 3-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @for (int i = 0; i < Model.IeltsListeningQuestionViewModel.Count; i++)
+                        {
+                            <div class="example example-basic">
+                                <div class="example-preview bgi-no-repeat gutter-b card-stretch"
+                                     style="background-position: right top; background-size: 30% auto; background-image: url(/assets/media/svg/shapes/abstract-2.svg)">
+                                    @if (Model.IeltsListeningQuestionViewModel[i].ListeningExamSectionId == GroupByListeningExamSectionCurrent)
+                                    {
+                                        n = 0;
+                                        GroupByListeningExamQuestionBlock = Model.IeltsListeningQuestionViewModel.Where(a => a.ListeningExamSectionId == GroupByListeningExamSectionCurrent).OrderBy(a => a.ListeningExamQuestionBlockOrderNo).GroupBy(a => a.ListeningExamQuestionBlockId).ToList();
+                                        GroupByListeningExamQuestionBlockCount = GroupByListeningExamQuestionBlock.Count();
+                                        GroupByListeningExamQuestionBlockCurrent = GroupByListeningExamQuestionBlock[0].Key;
+
+                                        <span class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">@Model.IeltsListeningQuestionViewModel[i].ListeningExamSectionTitle</span>
+                                        <br />
+                                        ++m;
+                                        if (m < GroupByListeningExamSectionCount)
+                                        {
+                                            GroupByListeningExamSectionCurrent = GroupByListeningExamSection[m].Key;
+                                        }
+                                        else
+                                        {
+                                            GroupByListeningExamSectionCurrent = new Guid();
+                                        }
+                                    }
+                                    @if (Model.IeltsListeningQuestionViewModel[i].ListeningExamQuestionBlockId == GroupByListeningExamQuestionBlockCurrent)
+                                    {
+                                        <span class="label label-inline label-light-success font-weight-bolder">@Model.IeltsListeningQuestionViewModel[i].ListeningExamQuestionBlockTitle</span>
+                                        <br />
+                                        <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">@Html.Raw(Model.IeltsListeningQuestionViewModel[i].ListeningExamQuestionBlockDescription)</p>
+                                        <div class="separator separator-dashed mt-5 mb-8"></div>
+                                        ++n;
+                                        if (n < GroupByListeningExamQuestionBlockCount)
+                                        {
+                                            GroupByListeningExamQuestionBlockCurrent = GroupByListeningExamQuestionBlock[n].Key;
+                                        }
+                                        else
+                                        {
+                                            GroupByListeningExamQuestionBlockCurrent = new Guid();
+                                        }
+                                    }
+
+                                    @if (Model.IeltsListeningQuestionViewModel[i].QuestionTypeId.ToString() == ListeningQuestionTypeList.RadioButton.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label>@Model.IeltsListeningQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            <div class="radio-inline">
+                                                @for (int j = 0; j < Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel.Count; j++)
+                                                {
+                                                    <label class="radio" style="padding:5px">
+                                                        @Html.RadioButtonFor(m => m.IeltsListeningQuestionViewModel[i].AnswerValue, Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerId, new { @class = "" })
+                                                        @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                                        &ensp;
+                                                        <span></span>
+                                                        @Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerTitle
+                                                    </label>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                    else if (Model.IeltsListeningQuestionViewModel[i].QuestionTypeId.ToString() == ListeningQuestionTypeList.CheckBox.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label>@Model.IeltsListeningQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            <div class="checkbox-inline">
+                                                @for (int j = 0; j < Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel.Count; j++)
+                                                {
+                                                    <label class="checkbox checkbox-square" style="padding:5px">
+                                                        @Html.CheckBoxFor(m => m.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].Checked, new { @class = "" })
+                                                        @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                                        &ensp;
+                                                        <span></span>
+                                                        @Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerTitle
+                                                    </label>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                    else if (Model.IeltsListeningQuestionViewModel[i].QuestionTypeId.ToString() == ListeningQuestionTypeList.ComboBox.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label>@Model.IeltsListeningQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @{
+                                                string selectId = "IeltsListeningQuestionViewModel_" + @i + "__QuestionId";
+                                                string selectName = "IeltsListeningQuestionViewModel[" + @i + "].AnswerValue";
+                                            }
+                                            <select id="@selectId" name="@selectName" class="form-control">
+                                                <option>
+                                                    -- select --
+                                                </option>
+                                                @for (int j = 0; j < Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel.Count; j++)
+                                                {
+                                                    <option value="@Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerId">
+                                                        @Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerTitle
+                                                    </option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                    else if (Model.IeltsListeningQuestionViewModel[i].QuestionTypeId.ToString() == ListeningQuestionTypeList.TextBox.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label>@Model.IeltsListeningQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].Value, new { @class = "form-control" })
+                                            @*@for (int j = 0; j < Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel.Count; j++)
+                                        {
+                                        <div>
+                                        <label>
+                                        @Model.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerTitle
+                                        @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                        @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].IeltsListeningAnswerViewModel[j].AnswerValue, new { @class = "form-control" })
+                                        </label>
+                                        </div>
+                                        }*@
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                    else if (Model.IeltsListeningQuestionViewModel[i].QuestionTypeId.ToString() == ListeningQuestionTypeList.TextArea.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label class="">@Model.IeltsListeningQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextAreaFor(m => m.IeltsListeningQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsListeningQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextAreaFor(m => m.IeltsListeningQuestionViewModel[i].Value, new { @class = "form-control" })
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                </div>
+                            </div>
+                        }                                
+                    </div>
+                }
+
+            }
+            <!--begin: Pricing-->
+            <!--end: Pricing-->
+        </div>
+    </div>
+</div>
+<div class="container" id="bottomFixDiv">
+    <div class="row ">
+        <div class="col-5 footerTimeBox">@await Component.InvokeAsync("_ExamTimerListening" , new { id = Model.ListeningExamId })</div>
+        <div class="col-5 footerTimeBox">
+            <button type="submit" class="btn btn-primary mr-2 btn-sm" form="IeltsExamListeningPage">Submit</button>
+            <a href="/" class="btn btn-secondary btn-sm">Cancel</a>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .notshow {
+        display: none;
+    }
+    #bodyDiv
+    {
+        height:100%;
+        overflow-y:scroll;
+    }
+    #bottomFixDiv
+    {
+            position: fixed; 
+            width:100%;
+            bottom:0;
+            padding:10px;
+        }
+</style>
+
+
+<style>
+    .footerTimeBox{
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.44);
+        border-radius: 6px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4.3px);
+        -webkit-backdrop-filter: blur(4.3px);
+        border: 1px solid rgba(255, 255, 255, 0.31);
+        padding:3px;
+        text-align: center;
+    }
+</style>
+
+
+

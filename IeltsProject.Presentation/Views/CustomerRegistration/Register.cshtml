@@ -1,0 +1,276 @@
+﻿@model IeltsProject.Presentation.Models.ApplicationUser
+
+<div class="col-lg-12">
+    @using (Html.BeginForm("Register", "CustomerRegistration", FormMethod.Post, new { id = "RegistrationFormValidation" }))
+    {
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class="container">
+                <div id="result"></div>
+                <!--begin::Card-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--begin::Advance Table Widget 3-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 py-5">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label font-weight-bolder text-dark"> Registration </span>
+                                </h3>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-0 pb-3">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>First Name </label>
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "First Name ", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">Enter Your First Name.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>Last Name </label>
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = " Last Name ", autocomplete = "off", required = "required" })
+                                        <span class="form-text text-muted">Enter Your Last Name.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>National Code</label>
+                                            @Html.TextBoxFor(m => m.NationalCode, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "National Code ", autocomplete = "off", required = "required", type = "number" })
+                                        <span class="form-text text-muted">Enter Your National Code.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>Mobile Number </label>
+                                            @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "Mobile Number ", autocomplete = "off", required = "required", type = "number" })
+                                        <span class="form-text text-muted">Enter Your Mobile Number.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <!--begin::Input-->
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>Birth Date</label>
+                                            @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control form-control-solid form-control-lg", placeholder = "Birth Date", autocomplete = "off", id = "ActivedDate" })
+                                        <span class="form-text text-muted">Enter Your Birth Date.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>Address </label>
+                                            @Html.TextAreaFor(m => m.Address, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "Address ", autocomplete = "off", required = "required" })
+                                        <span class="form-text text-muted">Enter Your Addres.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button id="submitBtn" class="btn btn-lg font-weight-bolder btn-light-success"><i class="la la-file-import"></i>Confirm</button>
+                                    <a href="/Home/Index" class="btn btn-lg font-weight-bolder btn-light-warning " data-dismiss="modal" aria-label="Close">
+                                        <i class="la la-file-export"></i>Cancle
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Advance Table Widget 3-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    /*.select2-selection__rendered {
+        background-color: #F3F6F9;
+        border-color: #F3F6F9;
+        color: #3F4254;
+        height: calc(1.5em + 1.65rem + 2px);
+        padding: 0.825rem 1.42rem;
+        font-size: 1.08rem;
+        line-height: 1.5;
+        border-radius: 0.85rem;
+    }*/
+    .form-control-solid1 {
+        background-color: #eaeaea54;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/MySelect2.js"></script>
+
+<script src="~/FormValidation/CustomerRegistrationValidation.js"></script>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#ActivedDate").datepicker({
+            format: "yyyy/mm/dd",
+            minViewMode: 0,
+            autoclose: true
+        });
+    });
+
+    $("#ActivedDate").keydown(function () {
+        return false;
+    });
+</script>
+
+
+
+@********************************ورژن فارسی****************
+
+    @model IeltsProject.Presentation.Models.ApplicationUser
+
+    <div class="col-lg-12">
+        @using (Html.BeginForm("Register", "CustomerRegistration", FormMethod.Post, new { id = "RegistrationFormValidation" }))
+        {
+            <div class="d-flex flex-column-fluid">
+                begin::Container
+                <div class="container">
+                    <div id="result"></div>
+                    begin::Card
+                    <div class="row">
+                        <div class="col-lg-12">
+                            begin::Advance Table Widget 3
+                            <div class="card card-custom card-stretch gutter-b">
+                                begin::Header
+                                <div class="card-header border-0 py-5">
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label font-weight-bolder text-dark">ثبت نام </span>
+                                    </h3>
+                                </div>
+                                end::Header
+                                begin::Body
+                                <div class="card-body pt-0 pb-3">
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>نام </label>
+                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "نام ", autocomplete = "off", required = "required" })
+                                                <span class="form-text text-muted">نام را وارد نمایید.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>نام خانوادگی </label>
+                                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "نام خانوادگی ", autocomplete = "off", required = "required" })
+                                                <span class="form-text text-muted">نام خانوادگی را وارد نمایید.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>کد ملی</label>
+                                                @Html.TextAreaFor(m => m.NationalCode, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "کد ملی", autocomplete = "off", required = "required", type = "number" })
+                                                <span class="form-text text-muted">کدملی را وارد نمایید.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>شماره موبایل </label>
+                                                @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "شماره موبایل ", autocomplete = "off", required = "required", type = "number" })
+                                                <span class="form-text text-muted">شماره موبایل را وارد نمایید.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            begin::Input
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>تاریخ تولد</label>
+                                                @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control form-control-solid form-control-lg", placeholder = "تاریخ تولد", autocomplete = "off", id = "ActivedDate" })
+                                                <span class="form-text text-muted">تاریخ تولد را وارد نمایید.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            end::Input
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>آدرس </label>
+                                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "آدرس ", autocomplete = "off", required = "required" })
+                                                <span class="form-text text-muted">آدرس را وارد نمایید.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <button id="submitBtn" class="btn btn-lg font-weight-bolder btn-light-success"><i class="la la-file-import"></i>Confirm</button>
+                                        <a href="/Home/Index" class="btn btn-lg font-weight-bolder btn-light-warning " data-dismiss="modal" aria-label="Close">
+                                            <i class="la la-file-export"></i>Cancel
+                                        </a>
+                                    </div>
+
+                                </div>
+                                end::Body
+                            </div>
+                            end::Advance Table Widget 3
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <style>
+        /*.select2-selection__rendered {
+            background-color: #F3F6F9;
+            border-color: #F3F6F9;
+            color: #3F4254;
+            height: calc(1.5em + 1.65rem + 2px);
+            padding: 0.825rem 1.42rem;
+            font-size: 1.08rem;
+            line-height: 1.5;
+            border-radius: 0.85rem;
+        }*/
+        .form-control-solid1 {
+            background-color: #eaeaea54;
+        }
+    </style>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/Scripts/MySelect2.js"></script>
+
+    <script src="~/FormValidation/CustomerRegistrationValidation.js"></script>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $("#ActivedDate").datepicker({
+                format: "yyyy/mm/dd",
+                minViewMode: 0,
+                autoclose: true
+            });
+        });
+
+        $("#ActivedDate").keydown(function () {
+            return false;
+        });
+    </script>
+*@

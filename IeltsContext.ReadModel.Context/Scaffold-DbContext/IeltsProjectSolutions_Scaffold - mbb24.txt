@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext 'Data Source=185.88.154.174,1430;Initial Catalog=bpvielt1_bpvieltsdb;User ID=bpvielt1_bpvieltsuser;Password=bpvieltsuser@#2022!;MultipleActiveResultSets=True' Microsoft.EntityFrameworkCore.SqlServer -Context 'ExamContextReadModelDBContext' -OutputDir Models/ExamContextReadModelDBContext -Force

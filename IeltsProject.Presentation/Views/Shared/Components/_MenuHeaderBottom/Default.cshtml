@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ExamContext.ReadModel.Queries.Contracts.GeneralContext.UserPanelMenuAggregate.DataContracts.UserPanelMenuQueryFacadeDto>
+@if (Model.Count() > 0)
+{
+	<div class="header-navs header-navs-left" id="kt_header_navs">
+		@{
+			var activeMenu = true;
+			int i = 1;
+		}
+		<ul class="header-tabs p-5 p-lg-0 d-flex d-lg-none nav nav-bold nav-tabs" role="tablist">			
+			@foreach (var item in Model.Where(a => a.ParentMenuId == null).ToList())
+			{
+				<!--begin::Item-->
+				if (activeMenu == true)
+				{
+					<li class="nav-item mr-2">
+						<a href="#" class="nav-link btn btn-clean active" data-toggle="tab" data-target="#tab_@i" role="tab">@item.Title</a>
+					</li>
+				}
+				else
+				{
+					<li class="nav-item mr-2">
+						<a href="#" class="nav-link btn btn-clean" data-toggle="tab" data-target="#tab_@i" role="tab">@item.Title</a>
+					</li>
+				}
+				activeMenu = false;
+				++i;
+			}
+		</ul>	
+		<div class="tab-content">
+			@{
+				var activeParentMenu = true;
+				int j = 1;
+			}
+			@foreach (var item in Model.Where(a => a.ParentMenuId == null).ToList())
+			{
+				if (activeParentMenu == true)
+				{
+					<div class="tab-pane py-5 p-lg-0 show active" id="tab_@j">
+						<!--begin::Menu-->
+						<div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
+							<!--begin::Nav-->
+							<ul class="menu-nav">
+								@foreach (var itemChild in Model.Where(a => a.ParentMenuId == item.Id).ToList())
+								{
+									<li class="menu-item menu-item-active" aria-haspopup="true">
+										<a href="@itemChild.Url" class="menu-link">
+											<span class="menu-text">@itemChild.Title</span>
+										</a>
+									</li>
+								}
+							</ul>
+							<!--end::Nav-->
+						</div>
+						<!--end::Menu-->
+					</div>
+				}
+				else
+				{
+					<div class="tab-pane p-5 p-lg-0 justify-content-between" id="tab_@j">
+						<!--begin::Menu-->
+						<div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
+							<!--begin::Nav-->
+							<ul class="menu-nav">
+								@foreach (var itemChild in Model.Where(a => a.ParentMenuId == item.Id).ToList())
+								{
+									<li class="menu-item menu-item-active" aria-haspopup="true">
+										<a href="@itemChild.Url" class="menu-link">
+											<span class="menu-text">@itemChild.Title</span>
+										</a>
+									</li>
+								}
+							</ul>
+							<!--end::Nav-->
+						</div>
+						<!--end::Menu-->
+					</div>
+				}
+				activeParentMenu = false;
+				++j;
+			}
+
+		</div>
+		<!--end::Tab Content-->
+</div>
+}
+

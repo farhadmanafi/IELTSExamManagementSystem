@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExamContext.Listening.Domain.Contracts\ExamContext.Listening.Domain.Contracts.csproj" />
+    <ProjectReference Include="..\ExamContext.Listening.Resources\ExamContext.Listening.Resources.csproj" />
+    <ProjectReference Include="..\Framework.Core\Framework.Core.csproj" />
+    <ProjectReference Include="..\Framework.Domain\Framework.Domain.csproj" />
+    <ProjectReference Include="..\Ielts.Common.GeneralClass\Ielts.Common.GeneralClass.csproj" />
+  </ItemGroup>
+
+</Project>

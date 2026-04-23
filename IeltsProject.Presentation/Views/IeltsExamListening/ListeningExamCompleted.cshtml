@@ -1,0 +1,36 @@
+﻿
+@if (ViewBag.CompletionStatus)
+{
+    <div class="alert alert-success mb-5 p-5" role="alert" style="text-align:center">
+        <h4 class="alert-heading">Dear User </h4>
+        <p>Your answers were successfully registered in this test.</p>
+        <div class="border-bottom border-white opacity-20 mb-5"></div>
+        <a href="@Url.Action("CustomerIeltsExamList","CustomerIeltsExam")" type="button" class="btn btn-info btn-lg btn-block">Return to Home</a>
+    </div>
+
+}
+else
+{
+<div class="alert alert-danger mb-5 p-5" role="alert" style="text-align:center">
+    <h4 class="alert-heading">Dear User</h4>
+    <p>There is a Problem. Please contact the support team</p>
+    <div class="border-bottom border-white opacity-20 mb-5"></div>
+    <a href="@Url.Action("CustomerIeltsExamList","CustomerIeltsExam")" type="button" class="btn btn-danger btn-lg btn-block">Return to Home</a>
+</div>
+
+}
+
+<style>
+    /*.alert-success {
+        background-color: #3699ff !important;
+        border-color: #ffa536 !important;
+    }*/
+    .btn-info {
+        background-color: #3e566e !important;
+    }
+    .btn-danger {
+        background-color: #3e566e !important;
+        border-color: #ffa536 !important;
+    }
+    
+</style>

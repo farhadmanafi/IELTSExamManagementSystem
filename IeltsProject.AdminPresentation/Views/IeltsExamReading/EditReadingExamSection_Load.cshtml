@@ -1,0 +1,113 @@
+﻿@model ExamContext.ReadModel.Queries.Contracts.ReadingContext.ReadingExamAggregate.DataContracts.ReadingExamSectionQueryFacadeDto
+
+<div class="col-lg-12">
+    @using (Html.BeginForm("EditReadingExamSection", "IeltsExamReading", FormMethod.Post, new { id = "AddReadingExamSectionFormValidation" }))
+    {
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class="container">
+                <div id="result"></div>
+                <!--begin::Card-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--begin::Advance Table Widget 3-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 py-5">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label font-weight-bolder text-dark">ویرایش بخش آزمون Reading </span>
+                                </h3>
+                            </div>
+                            @if (ViewBag.HasError == true)
+                            {
+                                <div class="col" style="text-align:center">
+                                    <div class="alert alert-custom alert-outline-danger fade show mb-5" role="alert">
+                                        <div class="alert-icon"><i class="flaticon-danger"></i></div>
+                                        <div class="alert-text">@Html.ValidationMessage("EditReadingExamSectionException")</div>
+                                        <div class="alert-close">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-0 pb-3">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <input type="hidden" name="Id" value="@Model.Id" />
+                                        <input type="hidden" name="ReadingExamId" value="@Model.ReadingExamId" />
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>عنوان بخش </label>
+                                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "عنوان ", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">عنوان بخش را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>ترتیب</label>
+                                            @Html.TextBoxFor(m => m.OrderNo, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "ترتیب", autocomplete = "off", type = "number" })
+                                            <span class="form-text text-muted">ترتیب را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>توضیح </label>
+                                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "توضیح ", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">توضیح را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>متن</label>
+                                            @Html.TextAreaFor(m => m.ReadingText, new { @class = "form-control", id = "ReadingText" })
+                                            <span class="form-text text-muted">متن Reading را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button id="submitBtn" class="btn btn-lg font-weight-bolder btn-light-success"><i class="la la-file-import"></i>تایید</button>
+                                    <a href="/IeltsExamReading/ReadingSection_Load/@Model.ReadingExamId" class="btn btn-lg font-weight-bolder btn-light-warning " data-dismiss="modal" aria-label="Close">
+                                        <i class="la la-file-export"></i>انصراف
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Advance Table Widget 3-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .form-control-solid1 {
+        background-color: #eaeaea54;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/MySelect2.js"></script>
+
+<script src="~/FormValidation/ReadingExam/AddReadingExamSectionFormValidation.js"></script>
+
+
+
+<link href="~/lib/ckeditor/prism_1.0.1/prism/lib/prism/prism_patched.min.css" rel="stylesheet" />
+<script src="~/lib/ckeditor/prism_1.0.1/prism/lib/prism/prism_patched.min.js"></script>
+<script src="~/lib/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace("ReadingText");
+</script>
+
+

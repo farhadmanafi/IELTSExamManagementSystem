@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExamContext.Writing.Domain.Contracts\ExamContext.Writing.Domain.Contracts.csproj" />
+    <ProjectReference Include="..\ExamContext.Writing.Resources\ExamContext.Writing.Resources.csproj" />
+    <ProjectReference Include="..\Framework.Domain\Framework.Domain.csproj" />
+    <ProjectReference Include="..\Ielts.Common.GeneralClass\Ielts.Common.GeneralClass.csproj" />
+  </ItemGroup>
+
+</Project>

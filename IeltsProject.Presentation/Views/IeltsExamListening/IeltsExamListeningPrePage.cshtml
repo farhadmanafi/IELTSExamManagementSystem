@@ -1,0 +1,69 @@
+﻿@model ExamContext.ReadModel.Queries.Contracts.ListeningContext.ListeningExamAggregate.DataContracts.ListeningExamQueryFacadeDto
+
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <span class="card-icon">
+                <i class="flaticon2-chart text-primary"></i>
+            </span>
+            <h3 class="card-label" style="text-align: center;">Pre Listening Voice</h3>
+            <p class="" style="text-align: center;"></p>
+
+        </div>
+    </div>
+    <div class="card-body" id="bodyDiv">
+        <div class="row justify-content-center">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="d-flex flex-column-fluid">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!--begin::Advance Table Widget 3-->
+                                        <div class="card card-custom card-stretch gutter-b">
+                                            <!--begin::Header-->
+                                            <div class="card-header border-0 py-5">
+                                                <h3 class="card-title align-items-start flex-column">
+                                                    <span class="card-label font-weight-bolder text-dark"> Pre Listening Voice</span>
+                                                </h3>
+                                            </div>
+                                            <!--end::Header-->
+                                            <!--begin::Body-->
+                                            <div class="card-body pt-0 pb-3">
+                                                <div class="row">
+                                                    <div class="col-xl-12">
+                                                        <div class="form-group fv-plugins-icon-container" style="text-align:center">
+                                                            @{
+                                                                var srcPreVoiceSource = "https://adminpanel.bpvielts.com" + @Model.PreVoiceSource;
+                                                            }
+                                                            <audio class="audio" controls>                                                                
+                                                                <source src="@srcPreVoiceSource" type="audio/mpeg">
+                                                                Your browser does not support this audio.
+                                                            </audio>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end::Body-->
+                                        </div>
+                                        <!--end::Advance Table Widget 3-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12" style="text-align: center;">
+            <a class="btn btn-primary mr-2" href="/IeltsExamListening/IeltsExamListeningPage?id=@ViewBag.id&pdId=@ViewBag.pdId">Next</a>
+            <a href="/" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿using ExamContext.Ielts.Aplication.Contracts.ResualtAggregarte;
+using ExamContext.Ielts.Facade.Contracts.ResualtAggregarte;
+using ExamContext.ReadModel.Queries.Contracts.IeltsExamContext.ParticipantsAggregate;
+using ExamContext.ReadModel.Queries.Contracts.IeltsExamContext.ResualtAggregarte;
+using ExamContext.ReadModel.Queries.Contracts.ListeningContext.ListeningUserAnswerAggregate;
+using Ielts.Common.GeneralClass;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace IeltsProject.AdminPresentation.Controllers
+{
+    public class IeltsExamListeningResultController : Controller
+    {
+        private readonly IListeningUserAnswerQueryFacade ilisteningUserAnswerQueryFacade;
+        private readonly IUserResualtFacade iuserResaultCommandFacade;
+        private readonly IUserResualtQueryFacade iuserResualtQueryFacade;
+        private readonly IIeltsExamParticipantsDetailQueryFacade iIeltsExamParticipantsDetailQueryFacade;
+        public IeltsExamListeningResultController(IListeningUserAnswerQueryFacade ilisteningUserAnswerQueryFacade,
+                                                  IUserResualtFacade iuserResaultCommandFacade,
+                                                  IUserResualtQueryFacade iuserResualtQueryFacade,
+                                                  IIeltsExamParticipantsDetailQueryFacade iIeltsExamParticipantsDetailQueryFacade)
+        {
+            this.ilisteningUserAnswerQueryFacade = ilisteningUserAnswerQueryFacade;
+            this.iuserResaultCommandFacade = iuserResaultCommandFacade;
+            this.iuserResualtQueryFacade = iuserResualtQueryFacade;
+            this.iIeltsExamParticipantsDetailQueryFacade = iIeltsExamParticipantsDetailQueryFacade;
+        }
+        public IActionResult IeltsExamListeningResult_Load(Guid customerId, Guid ieltsExamParticipantsId)
+        {
+            var examScore = iuserResualtQueryFacade.GetUserExamResult(ieltsExamParticipantsId, customerId);
+            if (examScore.ListeningScore != null)
+            {
+                ViewBag.HasListeningScore = true;
+                ViewBag.ListeningScore = examScore.ListeningScore;
+            }
+            else
+            {
+                ViewBag.HasListeningScore = false;
+                ViewBag.Scores = new List<SelectListItem>{ new SelectListItem { Value="0",Text="0"},
+                                                     new SelectListItem { Value="0.5",Text="0.5"},
+                                                     new SelectListItem { Value="1",Text="1"},
+                                                     new SelectListItem { Value="1.5",Text="1.5"},
+                                                     new SelectListItem { Value="2",Text="2"},
+                                                     new SelectListItem { Value="2.5",Text="2.5"},
+                                                     new SelectListItem { Value="3",Text="3"},
+                                                     new SelectListItem { Value="3.5",Text="3.5"},
+                                                     new SelectListItem { Value="4",Text="4"},
+                                                     new SelectListItem { Value="4.5",Text="4.5"},
+                                                     new SelectListItem { Value="5",Text="5"},
+                                                     new SelectListItem { Value="5.5",Text="5.5"},
+                                                     new SelectListItem { Value="6",Text="6"},
+                                                     new SelectListItem { Value="6.5",Text="6.5"},
+                                                     new SelectListItem { Value="7",Text="7"},
+                                                     new SelectListItem { Value="7.5",Text="7.5"},
+                                                     new SelectListItem { Value="8",Text="8"},
+                                                     new SelectListItem { Value="8.5",Text="8.5"},
+                                                     new SelectListItem { Value="9",Text="9"}};
+            }
+            ViewBag.CustomerId = customerId;
+            ViewBag.IeltsExamParticipantsId = ieltsExamParticipantsId;
+            return View();
+        }
+        public ActionResult IeltsExamListeningUserScoreDetailData(DataTableAjaxPostModel model, Guid id)
+        {
+            var ieltsExamParticipantsDetail = iIeltsExamParticipantsDetailQueryFacade.GetIeltsExamParticipantsDetailByIeltsExamParticipantsId(id);
+
+            var ListeningUserScoreList = ilisteningUserAnswerQueryFacade.GetListeningExamUserAnswerListByIeltsExamId(ref model, ieltsExamParticipantsDetail.ListeningExamId, ieltsExamParticipantsDetail.IeltsExamParticipantsId);
+
+            return Json(new
+            {
+                draw = model.draw,
+                recordsFiltered = model.filteredResultsCount,
+                data = ListeningUserScoreList
+            });
+        }
+        [HttpPost]
+        public IActionResult AddScore(float listeningExamScore, Guid customerId, Guid ieltsExamParticipantsId)
+        {
+            var command = new UpdateListeningScoreCommand();
+            command.IeltsExamParticipantsId = ieltsExamParticipantsId;
+            command.CustomerId = customerId;
+            command.ListeningScore = listeningExamScore;
+            iuserResaultCommandFacade.UpdateListeningScore(command);
+            return RedirectToAction("IeltsExamParticipantResult_Load", "IeltsExamResult", new { customerId = customerId, ieltsExamParticipantsId = ieltsExamParticipantsId });
+        }
+    }
+}

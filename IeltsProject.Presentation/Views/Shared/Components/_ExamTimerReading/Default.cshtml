@@ -1,0 +1,35 @@
+﻿<style>
+    #demo {
+        text-align: center;
+        font-size: 22px;
+        width : 100%;
+        color : red;
+    }
+</style>
+
+<span id="demo"></span>
+
+<script>
+    var minutes = @ViewBag.TimerAmount;
+    var seconds = 0;
+    var x = setInterval(function() {
+        if (seconds == 0)
+            minutes = minutes - 1;
+        if (seconds == 0) {
+            seconds = 59;
+        }
+        else {
+            seconds = seconds - 1;
+        }
+
+
+        // Output the result in an element with id="demo"
+        document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+
+        // If the count down is over, write some text
+        if (minutes == 0 && seconds == 0) {
+            document.getElementById("demo").innerHTML = "EXPIRED";
+            $('button[type="submit"]').trigger('click');
+        }
+    }, 1000);
+</script>

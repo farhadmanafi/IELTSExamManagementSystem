@@ -1,0 +1,79 @@
+﻿@using Ielts.Common.GeneralClass
+@model List<ExamContext.ReadModel.Queries.Contracts.OnlinePlacementContext.PlacementQuestionAggregate.DataContracts.PlacementQuestionQueryFacadeDto>
+
+
+@using (Html.BeginForm("OnlinePlacementExamPage", "OnlinePlacement", FormMethod.Post))
+{
+    <input type="hidden" name="productSurveyId" value="@ViewBag.ProductSurveyId" />
+    <div>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div>
+                @if (Model[i].PlacementQuestionTypeId.ToString() == PlacementQuestionTypeList.RadioButton.ToString())
+                {
+                    <div>
+                        <label>@Model[i].Title</label>
+                        @Html.TextBoxFor(m => m[i].Id, new { @class = "form-control notshow", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m[i].PlacementQuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                        @for (int j = 0; j < Model[i].PlacementQuestionAnswers.Count; j++)
+                        {
+                            <div>
+                                <label>
+                                    @Model[i].PlacementQuestionAnswers[j].Title
+                                    @Html.TextBoxFor(m => m[i].PlacementQuestionAnswers[j].Id, new { @class = "form-control notshow", @readonly = "readonly" })
+                                    @Html.RadioButtonFor(m => m[i].Title, Model[i].PlacementQuestionAnswers[j].Id)
+                                </label>
+                            </div>
+                        }
+                    </div>
+                }
+                else if (Model[i].PlacementQuestionTypeId.ToString() == PlacementQuestionTypeList.CheckBox.ToString())
+                {
+                    <div>
+                        <label>@Model[i].Title</label>
+                        @Html.TextBoxFor(m => m[i].Id, new { @class = "form-control notshow", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m[i].PlacementQuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                        @for (int j = 0; j < Model[i].PlacementQuestionAnswers.Count; j++)
+                        {
+                            <div>
+                                <label>
+                                    @Model[i].PlacementQuestionAnswers[j].Title
+                                    @*@Html.TextBoxFor(m => m[i].PlacementQuestionAnswers[j].Id, new { @class = "form-control notshow", @readonly = "readonly" })*@
+                                    @*@Html.CheckBoxFor(m => m[i].PlacementQuestionAnswers[j].Checked, new { })*@
+                                </label>
+                            </div>
+                        }
+                    </div>
+                }
+                else if (Model[i].PlacementQuestionTypeId.ToString() == PlacementQuestionTypeList.TextBox.ToString())
+                {
+                    <div>
+                        <label>@Model[i].Title</label>
+                        @Html.TextBoxFor(m => m[i].Id, new { @class = "form-control notshow", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m[i].PlacementQuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                        @for (int j = 0; j < Model[i].PlacementQuestionAnswers.Count; j++)
+                        {
+                            <div>
+                                <label>
+                                    @Model[i].PlacementQuestionAnswers[j].Title
+                                    @Html.TextBoxFor(m => m[i].PlacementQuestionAnswers[j].Id, new { @class = "form-control notshow", @readonly = "readonly" })
+                                    @Html.TextAreaFor(m => m[i].PlacementQuestionAnswers[j].Title, new { @class = "form-control" })
+                                </label>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+        }
+    </div>
+    <input type="submit" />
+}
+
+<style>
+    .notshow {
+        display: none;
+    }
+</style>
+
+

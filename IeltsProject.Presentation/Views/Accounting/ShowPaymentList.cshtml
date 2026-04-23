@@ -1,0 +1,74 @@
+﻿@model IList<ExamContext.ReadModel.Queries.Contracts.AccountingContext.AccountingAggregate.DataContracts.BankTransactionListQueryFacadeDto>
+
+<div class="col-lg-12">
+    <!--begin::Advance Table Widget 3-->
+    <div class="card card-custom card-stretch gutter-b">
+        <!--begin::Header-->
+        <div class="card-header border-0 py-5">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label font-weight-bolder text-dark">
+                    Payment List
+                </span>
+            </h3>
+        </div>
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="card-body pt-0 pb-3">
+            <!--begin::Table-->
+            <!--**********************datatablw search**************-->
+            <form class="mb-15">
+                <div class="row mb-6">
+                    <div class="col-lg-2 mb-lg-0 mb-6">
+                        <label>Search Text</label>
+                        <input type="text" class="form-control datatable-input" data-col-index="0" />
+                    </div>
+
+                    <div class="col-lg-4 mb-lg-0 mb-6">
+                        <label></label>
+                        <div style="margin-top:5px">
+                            <button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                <span>
+                                    <i class="la la-search"></i>
+                                    <span>Search</span>
+                                </span>
+                            </button>&nbsp;&nbsp;
+                            <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
+                                <span>
+                                    <i class="la la-close"></i>
+                                    <span>Remove Filters</span>
+                                </span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+            <table id="DT_PaymentListData" class="table table-bordered " data-url="@Url.Action("GetPaymentListData", "Accounting",new {customerId=ViewBag.CustomerId })">
+                <thead>
+                    <tr>
+                        <th>Exam Title </th>
+                        <th>Payer name</th>
+                        <th>Price</th>
+                        <th>Transaction Status</th>
+                        <th>Transaction Date</th>
+                        <th>Tracking Code</th>
+                    </tr>
+                </thead>
+            </table>
+            <!--end::Table-->
+            <!--****************************************************-->
+            <!--end::Table-->
+        </div>
+        <!--end::Body-->
+    </div>
+    <!--end::Advance Table Widget 3-->
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@section scripts{
+    <script src="~/DataTableScripts/CustomerIeltsExam/BankTransactionDataTable.js"></script>
+}
+
+
+

@@ -1,0 +1,265 @@
+﻿@model ExamContext.ReadModel.Queries.Contracts.ReadingContext.ReadingExamAggregate.DataContracts.ReadingExamQueryFacadeDto
+
+<div class="col-lg-12">
+    @using (Html.BeginForm("AddIeltsReading", "IeltsExamReading", FormMethod.Post, new { id = "AddReadingExamFormValidation" }))
+    {
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class="container">
+                <div id="result"></div>
+                <!--begin::Card-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--begin::Advance Table Widget 3-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 py-5">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label font-weight-bolder text-dark">افزودن آزمون جدید </span>
+                                </h3>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-0 pb-3">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <input type="hidden" name="IeltsExamId" value="@ViewBag.IeltsExamId" />
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>عنوان بخش </label>
+                                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "عنوان ", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">عنوان را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>توضیح </label>
+                                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "توضیح ", autocomplete = "off", required = "required" })                                            
+                                            <span class="form-text text-muted">توضیح را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>مدت زمان</label>
+                                            @Html.TextBoxFor(m => m.TimerMinuties, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "مدت زمان", autocomplete = "off", type="number" })
+                                            <span class="form-text text-muted">مدت زمان را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>ReadingText</label>
+                                            @*@Html.TextBoxFor(m => m.ReadingText, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "متن", autocomplete = "off" })*@
+                                            <div id="kt-ckeditor-2-toolbar"></div>
+                                            <div  id="kt-ckeditor-2" name="ReadingText">
+                                                <h1>Quick and simple CKEditor 5 Integration</h1>
+                                                <figure class="image"><img src="<?php echo Page::getMediaPath();?>stock-600x400/img-1.jpg" alt="Metronic CKEditor Demo"/></figure>
+                                                Here goes the <a href="#">Minitial content of the editor</a>. Lorem Ipsum is simply dummy text of the <em>printing and typesetting</em> industry.
+                                            </div>
+                                            <span class="form-text text-muted">متن Reading را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-xl-4 col-lg-3 col-sm-4  col-form-label">تعیین وضعیت :</label>
+                                            <div class="col-lg-9 col-xl-8 col-sm-8 d-flex align-items-center">
+                                                <div class="checkbox-inline">
+                                                    <label class="checkbox">
+                                                        @Html.CheckBoxFor(m => m.IsActive, new { })
+                                                        <span></span>فعال
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button id="submitBtn" class="btn btn-lg font-weight-bolder btn-light-success"><i class="la la-file-import"></i>تایید</button>
+                                    <a href="/IeltsExamReading/IeltsReading_Load/@ViewBag.IeltsExamId" class="btn btn-lg font-weight-bolder btn-light-warning " data-dismiss="modal" aria-label="Close">
+                                        <i class="la la-file-export"></i>انصراف
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Advance Table Widget 3-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="col-lg-12">
+    <div class="card card-custom">
+        <div class="card-header">
+            <h3 class="card-title">
+                Decoupled Document Demo with Images
+            </h3>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+
+	<!--begin::Card-->
+
+
+
+
+	@*<div class="card card-custom gutter-b example example-compact">
+		<div class="card-header">
+			<h3 class="card-title">Decoupled Document Demo with Images</h3>
+			<div class="card-toolbar">
+				<div class="example-tools justify-content-center">
+					<span class="example-toggle" data-toggle="tooltip" title="View code"></span>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div id="kt-ckeditor-2-toolbar"></div>
+			<div id="kt-ckeditor-2">
+			<h1>Quick and simple CKEditor 5 Integration</h1>
+			<figure class="image">
+				<img src="assets/media/stock-600x400/img-1.jpg" alt="Metronic CKEditor Demo" />
+			</figure>Here goes the
+			<a href="#">Minitial content of the editor</a>. Lorem Ipsum is simply dummy text of the
+			<em>printing and typesetting</em>industry.</div>
+			<!--begin: Code-->
+			<div class="example-code mt-10">
+				<ul class="example-nav nav nav-tabs nav-bold nav-tabs-line nav-tabs-line-2x">
+					<li class="nav-item">
+						<a class="nav-link active" data-toggle="tab" href="#example_code_html2">HTML</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#example_code_js2">JS</a>
+					</li>
+				</ul>
+				<span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
+				<div class="tab-content">
+					<div class="tab-pane active" id="example_code_html2" role="tabpanel">
+						<div class="example-highlight">
+							<pre style="height:400px">
+                            <code class="language-html">
+                                &lt;div class="card card-custom"&gt;
+                                    &lt;div class="card-header"&gt;
+                                        &lt;h3 class="card-title"&gt;
+                                            Decoupled Document Demo with Images
+                                        &lt;/h3&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class="card-body"&gt;
+                                        &lt;div id="kt-ckeditor-2-toolbar"&gt;&lt;/div&gt;
+                                        &lt;div  id="kt-ckeditor-2"&gt;
+                                            &lt;h1&gt;Quick and simple CKEditor 5 Integration&lt;/h1&gt;
+                                            &lt;figure class="image"&gt;&lt;img src="&lt;?php echo Page::getMediaPath();?&gt;stock-600x400/img-1.jpg" alt="Metronic CKEditor Demo"/&gt;&lt;/figure&gt;
+                                            Here goes the &lt;a href="#"&gt;Minitial content of the editor&lt;/a&gt;. Lorem Ipsum is simply dummy text of the &lt;em&gt;printing and typesetting&lt;/em&gt; industry.
+                                        &lt;/div&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            </code>
+                            </pre>
+						</div>
+					</div>
+					<div class="tab-pane" id="example_code_js2">
+						<div class="example-highlight">
+							<pre style="height:400px">
+                                <code class="language-js">
+                                    // Class definition
+
+                                    var KTCkeditorDocument = function () {
+                                        // Private functions
+                                        var demos = function () {
+                                            DecoupledEditor
+                                                .create( document.querySelector( '#kt-ckeditor-2' ) )
+                                                .then( editor =&gt; {
+                                                    const toolbarContainer = document.querySelector( '#kt-ckeditor-2-toolbar' );
+
+                                                    toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+                                                } )
+                                                .catch( error =&gt; {
+                                                    console.error( error );
+                                                } );
+                                        }
+
+                                        return {
+                                            // public functions
+                                            init: function() {
+                                                demos();
+                                            }
+                                        };
+                                    }();
+
+                                    // Initialization
+                                    jQuery(document).ready(function() {
+                                        KTCkeditorDocument.init();
+                                    });
+                                    </code>
+                            </pre>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end: Code-->
+		</div>
+	</div>*@
+	<!--end::Card-->
+</div>
+
+<style>
+    .form-control-solid1 {
+        background-color: #eaeaea54;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/MySelect2.js"></script>
+
+<script src="~/FormValidation/ReadingExam/AddReadingExamFormValidation.js"></script>
+
+<!--begin::Page Vendors(used by this page)-->
+<script src="~/assets/plugins/custom/ckeditor/ckeditor-document.bundle.js"></script>
+<!--end::Page Vendors-->
+<!--begin::Page Scripts(used by this page)-->
+<script src="assets/js/pages/crud/forms/editors/ckeditor-document.js"></script>
+<!--end::Page Scripts-->
+
+
+<script>
+
+var KTCkeditorDocument = function () {
+    // Private functions
+    var demos = function () {
+        DecoupledEditor
+            .create( document.querySelector( '#kt-ckeditor-2' ) )
+            .then( editor => {
+                const toolbarContainer = document.querySelector( '#kt-ckeditor-2-toolbar' );
+
+                toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    }
+
+    return {
+        // public functions
+        init: function() {
+            demos();
+        }
+    };
+}();
+
+// Initialization
+jQuery(document).ready(function() {
+    KTCkeditorDocument.init();
+});
+
+@*CKEDITOR.replace('ReadingText');*@
+</script>
+
+
+
+

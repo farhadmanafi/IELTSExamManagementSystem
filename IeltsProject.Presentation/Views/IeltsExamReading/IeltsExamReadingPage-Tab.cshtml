@@ -1,0 +1,211 @@
+﻿@using Ielts.Common.GeneralClass
+@model IeltsProject.Presentation.Models.IeltsReadingExamViewModel
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <span class="card-icon">
+                <i class="flaticon2-chart text-primary"></i>
+            </span>
+            <h3 class="card-label">آزمون Reading</h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <!--begin: Pricing-->
+            @using (Html.BeginForm("IeltsExamReadingPage", "IeltsExamReading", FormMethod.Post,new { @class="col-md-10 form" }))
+            {
+                <input type="hidden" name="ReadingExamId" value="@Model.ReadingExamId" />
+                <div class="card-body">
+                    <div class="wizard wizard-3" id="kt_wizard_v3" data-wizard-state="step-first" data-wizard-clickable="true">
+                        <!--begin: Wizard Nav-->
+                        <div class="wizard-nav">
+                            <div class="wizard-steps px-8 py-8 px-lg-15 py-lg-3">
+                                @{
+                                    int tabNumber = 1;
+                        
+                                    int m = 0;
+                                    var GroupByReadingExamSection = Model.IeltsReadingQuestionViewModel.OrderBy(a=>a.ReadingExamSectionOrderNo).GroupBy(a => a.ReadingExamSectionId).ToList();
+                                    int GroupByReadingExamSectionCount = GroupByReadingExamSection.Count();                
+                                    Guid GroupByReadingExamSectionCurrent = GroupByReadingExamSection[m].Key;
+                                }
+
+                                @for (int i = 0; i < Model.IeltsReadingQuestionViewModel.Count; i++)
+                                {
+                                    if (Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionId == GroupByReadingExamSectionCurrent)
+                                    {
+                                        <!--begin::Wizard Step 1 Nav-->
+                                        if (tabNumber == 1)
+                                        {
+                                            <div class="wizard-step" data-wizard-type="step" data-wizard-state="current">
+                                                <div class="wizard-label">
+                                                    <h3 class="wizard-title">
+                                                        <span>@tabNumber .</span> @Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionTitle
+                                                    </h3>
+                                                    <div class="wizard-bar"></div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="wizard-step" data-wizard-type="step">
+                                                <div class="wizard-label">
+                                                    <h3 class="wizard-title">
+                                                        <span>@tabNumber .</span> @Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionTitle                   
+                                                    </h3>
+                                                    <div class="wizard-bar"></div>
+                                                </div>
+                                            </div>
+                                        }
+                                        <!--end::Wizard Step 1 Nav-->
+                                        ++tabNumber;                           
+                                        ++m;
+                                        if (m < GroupByReadingExamSectionCount)
+                                        {
+                                            GroupByReadingExamSectionCurrent = GroupByReadingExamSection[m].Key;
+                                        }
+                                        else
+                                        {
+                                            GroupByReadingExamSectionCurrent = new Guid();
+                                        }
+                                    }                         
+                                }
+                            </div>
+                        </div>
+                        <!--end: Wizard Nav-->
+                    <!--begin: Wizard Body-->
+                    <div class="row justify-content-center py-10 px-8 py-lg-12 px-lg-10">
+                        <div class="col-md-12">
+                            <!--begin: Wizard Form-->
+                                <!--begin: Wizard Step 1-->
+                                @{
+                                    tabNumber = 1;
+                                    m = 0;
+                                    GroupByReadingExamSection = Model.IeltsReadingQuestionViewModel.OrderBy(a=>a.ReadingExamSectionOrderNo).GroupBy(a => a.ReadingExamSectionId).ToList();
+                                    GroupByReadingExamSectionCount = GroupByReadingExamSection.Count();                
+                                    GroupByReadingExamSectionCurrent = GroupByReadingExamSection[m].Key;
+                
+                                    int n = 0;
+                                    var GroupByReadingExamQuestionBlock = Model.IeltsReadingQuestionViewModel.Where(a=>a.ReadingExamSectionId == GroupByReadingExamSectionCurrent).GroupBy(a => a.ReadingExamQuestionBlockId).ToList();                                
+                                    int GroupByReadingExamQuestionBlockCount = GroupByReadingExamQuestionBlock.Count();
+                                    Guid GroupByReadingExamQuestionBlockCurrent = GroupByReadingExamQuestionBlock[n].Key;
+                                }
+                                @for (int i = 0; i < Model.IeltsReadingQuestionViewModel.Count; i++)
+                                {                                    
+                                    if (Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionId == GroupByReadingExamSectionCurrent)
+                                    {
+                                        n = 0;
+                                        GroupByReadingExamQuestionBlock = Model.IeltsReadingQuestionViewModel.Where(a=>a.ReadingExamSectionId == GroupByReadingExamSectionCurrent).OrderBy(a=>a.ReadingExamQuestionBlockOrderNo).GroupBy(a => a.ReadingExamQuestionBlockId).ToList();
+                                        GroupByReadingExamQuestionBlockCount = GroupByReadingExamQuestionBlock.Count();
+                                        GroupByReadingExamQuestionBlockCurrent = GroupByReadingExamQuestionBlock[0].Key;
+                                        if (tabNumber == 1)
+                                        {
+                                            <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                                                <!--begin::Input-->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="card card-custom p-6">
+								                            <div class="card-body">
+                                                                <h4 class="mb-10 font-weight-bold text-dark">@Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionTitle</h4>
+                                                                @Html.Raw(Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionReadingText)
+								                            </div>
+							                            </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="card card-custom p-6">
+								                            <div class="card-body">
+                                                                <h4 class="mb-10 font-weight-bold text-dark">Answer </h4>
+                                                                <textarea class="form-control" rows="15"></textarea>
+								                            </div>
+							                            </div>
+                                                    </div>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="pb-5" data-wizard-type="step-content">
+                                                <!--begin::Input-->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="card card-custom p-6">
+								                            <div class="card-body">
+                                                                <h4 class="mb-10 font-weight-bold text-dark">@Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionTitle</h4>
+                                                                @Html.Raw(Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionReadingText)
+								                            </div>
+							                            </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="card card-custom p-6">
+								                            <div class="card-body">
+                                                                <h4 class="mb-10 font-weight-bold text-dark">Answer ( )</h4>
+                                                                <textarea class="form-control" rows="15"></textarea>
+								                            </div>
+							                            </div>
+                                                    </div>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                        }                                       
+                                        ++m;
+                                        if (m < GroupByReadingExamSectionCount)
+                                        {
+                                            GroupByReadingExamSectionCurrent = GroupByReadingExamSection[m].Key;
+                                        }
+                                        else
+                                        {                                
+                                                GroupByReadingExamSectionCurrent = new Guid();
+                                        }
+                                    }                                  
+                        
+                               
+                                }               
+                                <!--end: Wizard Step 1-->
+                                <!--begin: Wizard Actions-->
+                                <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                                    <div class="mr-2">
+                                        <button type="button" class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-prev">Previous</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-submit">Submit</button>
+                                        <button type="button" class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-next">Next</button>
+                                    </div>
+                                </div>
+                                <!--end: Wizard Actions-->
+                            <!--end: Wizard Form-->
+                        </div>
+                    </div>
+                    <!--end: Wizard Body-->
+                    </div>
+                </div>
+                <div class="card-footer">
+		            <div class="row">
+			            <div class="col-lg-5"></div>
+			            <div class="col-lg-7">
+				            <button type="submit" class="btn btn-primary mr-2">Confirm</button>
+				            <button type="reset" class="btn btn-secondary">Cancel</button>
+			            </div>
+		            </div>
+	            </div>
+            }
+            <!--end: Pricing-->
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .notshow {
+        display: none;
+    }
+</style>
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<link href="~/assets/css/pages/wizard/wizard-3.css" rel="stylesheet" type="text/css" />
+
+<script src="~/assets/js/pages/custom/wizard/wizard-3.js"></script><!--begin: Wizard-->
+

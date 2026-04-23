@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.Mapper\Framework.Mapper.csproj" />
+    <ProjectReference Include="..\IeltsContext.ReadModel.Context\ExamContext.ReadModel.Context.csproj" />
+    <ProjectReference Include="..\IeltsContext.ReadModel.Queries.Contracts\ExamContext.ReadModel.Queries.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
+  </ItemGroup>
+
+</Project>

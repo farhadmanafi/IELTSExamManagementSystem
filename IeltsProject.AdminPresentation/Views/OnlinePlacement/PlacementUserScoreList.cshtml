@@ -1,0 +1,78 @@
+﻿@model IList<ExamContext.ReadModel.Queries.Contracts.OnlinePlacementContext.PlacementUserScoreAggregate.DataContracts.PlacementUserScoreQueryFacadeDto>
+
+<div class="col-lg-12">
+            <!--begin::Advance Table Widget 3-->
+            <div class="card card-custom card-stretch gutter-b">
+                <!--begin::Header-->
+                <div class="card-header border-0 py-5">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="card-label font-weight-bolder text-dark">لیست نتایج آزمون های تعیین سطح</span>
+                        @*<span class="text-muted mt-3 font-weight-bold font-size-sm">نمایش همه</span>*@
+                    </h3>
+                    <div class="card-toolbar">
+                        
+                    </div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body pt-0 pb-3">
+                    <!--begin::Table-->
+
+                    <!--**********************datatablw search**************-->
+                    @*<form class="mb-15">
+                        <div class="row mb-6">
+                            <div class="col-lg-2 mb-lg-0 mb-6">
+                                <label>عنوان آزمون</label>
+                                <input type="text" class="form-control datatable-input" data-col-index="0" />
+                            </div>
+
+                            <div class="col-lg-4 mb-lg-0 mb-6">
+                                <label></label>
+                                <div style="margin-top:5px">
+                                    <button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                            <span>جستجو</span>
+                                        </span>
+                                    </button>&nbsp;&nbsp;
+                                    <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
+                                        <span>
+                                            <i class="la la-close"></i>
+                                            <span>حذف فیلترها</span>
+                                        </span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>*@
+
+                    <table id="DT_OnlinePlacementUserScoreList" class="table table-bordered " data-url="@Url.Action("PlacementUserScoreData", "OnlinePlacement", new { Id = ViewBag.OnlinePlacemenId })">
+                        <thead>
+                            <tr>
+                                <th>آزمون</th>
+                                <th>کاربر</th>
+                                <th>سطح</th>
+                                <th>تاریخ آزمون</th>
+                                <th>وضعیت</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <!--end::Table-->
+                    <!--****************************************************-->
+                    <!--end::Table-->
+                </div>
+                <!--end::Body-->
+            </div>
+            <!--end::Advance Table Widget 3-->
+        </div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@section scripts{
+    <script src="~/DataTableScripts/OnlinePlacement/OnlinePlacementUserScoreDataTable.js"></script>
+}
+
+
+

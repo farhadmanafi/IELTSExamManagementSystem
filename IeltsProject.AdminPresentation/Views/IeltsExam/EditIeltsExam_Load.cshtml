@@ -1,0 +1,169 @@
+﻿@model ExamContext.ReadModel.Queries.Contracts.IeltsExamContext.IeltsAggregarte.DataContracts.IeltsExamQueryFacadeDto
+
+<div class="col-lg-12">
+    @using (Html.BeginForm("EditIeltsExam", "IeltsExam", FormMethod.Post, new { id = "AddIeltsExamFormValidation" }))
+    {
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class="container">
+                <div id="result"></div>
+                <!--begin::Card-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--begin::Advance Table Widget 3-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 py-5">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label font-weight-bolder text-dark">ویرایش آزمون </span>
+                                </h3>
+                            </div>
+                            @if (ViewBag.HasError == true)
+                            {
+                                <div class="col" style="text-align:center">
+                                    <div class="alert alert-custom alert-outline-danger fade show mb-5" role="alert">
+                                        <div class="alert-icon"><i class="flaticon-danger"></i></div>
+                                        <div class="alert-text">@Html.ValidationMessage("EditIeltsExamException")</div>
+                                        <div class="alert-close">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <input type="hidden" name="Id" value="@Model.Id" />
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-0 pb-3">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>عنوان </label>
+                                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "عنوان ", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">عنوان را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>توضیح</label>
+                                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "توضیح", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">توضیح را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <!--begin::Input-->
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>تاریخ فعالسازی</label>
+                                            @Html.TextBoxFor(m => m.ActivedDate_Persian, new { @class = "form-control form-control-solid form-control-lg", placeholder = "تاریخ فعالسازی", autocomplete = "off", id = "ActivedDate" })
+                                            <span class="form-text text-muted">تاریخ فعالسازی را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <!--begin::Input-->
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>تاریخ غیر فعالسازی</label>
+                                            @Html.TextBoxFor(m => m.DeActivedDate_Persian, new { @class = "form-control form-control-solid form-control-lg", placeholder = "تاریخ غیر فعالسازی", autocomplete = "off", id = "DeActivedDate" })
+                                            <span class="form-text text-muted">تاریخ غیر فعالسازی را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-xl-4 col-lg-3 col-sm-4  col-form-label">تعیین وضعیت :</label>
+                                            <div class="col-lg-9 col-xl-8 col-sm-8 d-flex align-items-center">
+                                                <div class="checkbox-inline">
+                                                    <label class="checkbox">
+                                                        @Html.CheckBoxFor(m => m.IsActive, new { })
+                                                        <span></span>فعال
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button id="submitBtn" class="btn btn-lg font-weight-bolder btn-light-success"><i class="la la-file-import"></i>تایید</button>
+                                    <a href="/IeltsExam/ExamList" class="btn btn-lg font-weight-bolder btn-light-warning " data-dismiss="modal" aria-label="Close">
+                                        <i class="la la-file-export"></i>انصراف
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Advance Table Widget 3-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    /*.select2-selection__rendered {
+        background-color: #F3F6F9;
+        border-color: #F3F6F9;
+        color: #3F4254;
+        height: calc(1.5em + 1.65rem + 2px);
+        padding: 0.825rem 1.42rem;
+        font-size: 1.08rem;
+        line-height: 1.5;
+        border-radius: 0.85rem;
+    }*/
+    .form-control-solid1 {
+        background-color: #eaeaea54;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/MySelect2.js"></script>
+
+<script src="~/FormValidation/IeltsExam/AddIeltsExamFormValidation.js"></script>
+@*<script src="~/assets/js/pages/crud/forms/widgets/select2.js"></script>*@
+
+@*<script>
+        var supplierTypes = [];
+            function Check(selectObject) {
+                //alert("Check insuranceItems Clicked");
+                // var insuranceItems = new Array();
+                for (var i = 0, j = selectObject.options.length; i < j; ++i) {
+                    if (selectObject.options[i].selected) {
+                        supplierTypes.push(selectObject.options[i].value);
+                    }
+                }
+            }
+
+    </script>*@
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#ActivedDate").datepicker({
+            format: "yyyy/mm/dd",
+            minViewMode: 0,
+            autoclose: true
+        });
+        $("#DeActivedDate").datepicker({
+            format: "yyyy/mm/dd",
+            minViewMode: 0,
+            autoclose: true
+        });
+    });
+
+    $("#ActivedDate").keydown(function () {
+        return false;
+    });
+    $("#DeActivedDate").keydown(function () {
+        return false;
+    });
+</script>

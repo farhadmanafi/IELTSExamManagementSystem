@@ -1,0 +1,104 @@
+﻿@model ExamContext.ReadModel.Queries.Contracts.ReadingContext.ReadingExamAggregate.DataContracts.ReadingExamQuestionBlockQueryFacadeDto
+
+<div class="col-lg-12">
+    @using (Html.BeginForm("AddReadingQuestionBlock", "IeltsExamReading", FormMethod.Post, new { id = "AddReadingExamQuestionBlockFormValidation" }))
+    {
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class="container">
+                <div id="result"></div>
+                <!--begin::Card-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--begin::Advance Table Widget 3-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 py-5">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label font-weight-bolder text-dark">افزودن بلوک جدید </span>
+                                </h3>
+                            </div>
+                            @if (ViewBag.HasError == true)
+                            {
+                                <div class="col" style="text-align:center">
+                                    <div class="alert alert-custom alert-outline-danger fade show mb-5" role="alert">
+                                        <div class="alert-icon"><i class="flaticon-danger"></i></div>
+                                        <div class="alert-text">@Html.ValidationMessage("AddReadingQuestionBlockException")</div>
+                                        <div class="alert-close">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-0 pb-3">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <input type="hidden" name="ReadingExamSectionId" value="@ViewBag.ReadingExamSectionId" />
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>عنوان بلوک </label>
+                                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "عنوان ", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">عنوان بلوک را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>ترتیب</label>
+                                            @Html.TextBoxFor(m => m.OrderNo, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "ترتیب بلوک", autocomplete = "off", type = "number", required = "required" })
+                                            <span class="form-text text-muted">ترتیب بلوک را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="form-group fv-plugins-icon-container">
+                                        <label>توضیحات</label>
+                                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "توضیح", autocomplete = "off", id = "Description" })
+                                        <span class="form-text text-muted">توضیحات را وارد نمایید.</span>
+                                        <div class="fv-plugins-message-container"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button id="submitBtn" class="btn btn-lg font-weight-bolder btn-light-success"><i class="la la-file-import"></i>تایید</button>
+                                    <a href="/IeltsExamReading/ReadingQuestionBlock_Load/@ViewBag.ReadingExamSectionId" class="btn btn-lg font-weight-bolder btn-light-warning " data-dismiss="modal" aria-label="Close">
+                                        <i class="la la-file-export"></i>انصراف
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Advance Table Widget 3-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .form-control-solid1 {
+        background-color: #eaeaea54;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/MySelect2.js"></script>
+
+<script src="~/FormValidation/ReadingExam/AddReadingExamQuestionBlockFormValidation.js"></script>
+
+
+<link href="~/lib/ckeditor/prism_1.0.1/prism/lib/prism/prism_patched.min.css" rel="stylesheet" />
+<script src="~/lib/ckeditor/prism_1.0.1/prism/lib/prism/prism_patched.min.js"></script>
+<script src="~/lib/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace("Description");
+</script>
+
+

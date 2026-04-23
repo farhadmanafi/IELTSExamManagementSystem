@@ -1,0 +1,132 @@
+﻿@model IEnumerable<ExamContext.ReadModel.Queries.Contracts.WritingContext.WritingExamAggregate.DataContracts.WritingExamSectionQueryFacadeDto>
+
+<!--begin: Wizard-->
+<div class="wizard wizard-3" id="kt_wizard_v3" data-wizard-state="step-first" data-wizard-clickable="true">
+    <!--begin: Wizard Nav-->
+    <div class="wizard-nav">
+        <div class="wizard-steps px-8 py-8 px-lg-15 py-lg-3">
+            @{
+                int tabNumber = 1;
+            }
+            @foreach(var item in Model)
+            {
+                <!--begin::Wizard Step 1 Nav-->
+                if (tabNumber == 1)
+                {
+                    <div class="wizard-step" data-wizard-type="step" data-wizard-state="current">
+                        <div class="wizard-label">
+                            <h3 class="wizard-title">
+                                <span>@tabNumber .</span> @item.Title
+                            </h3>
+                            <div class="wizard-bar"></div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="wizard-step" data-wizard-type="step">
+                        <div class="wizard-label">
+                            <h3 class="wizard-title">
+                                <span>@tabNumber .</span> @item.Title                    
+                            </h3>
+                            <div class="wizard-bar"></div>
+                        </div>
+                    </div>
+                }
+                <!--end::Wizard Step 1 Nav-->
+                ++tabNumber;
+            }
+        </div>
+    </div>
+    <!--end: Wizard Nav-->
+    <!--begin: Wizard Body-->
+    <div class="row justify-content-center py-10 px-8 py-lg-12 px-lg-10">
+        <div class="col-md-12">
+            <!--begin: Wizard Form-->
+            <form class="form" id="kt_form">
+                <!--begin: Wizard Step 1-->
+                @{
+                    tabNumber = 1;
+                }
+                @foreach(var item in Model)
+                {
+                    <!--begin::Wizard Step 1 Nav-->
+                    if (tabNumber == 1)
+                    {
+                        <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                            <!--begin::Input-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card card-custom p-6">
+								        <div class="card-body">
+                                            <h4 class="mb-10 font-weight-bold text-dark">@item.Title</h4>
+                                            @Html.Raw(item.WritingTopic)
+								        </div>
+							        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card card-custom p-6">
+								        <div class="card-body">
+                                            <h4 class="mb-10 font-weight-bold text-dark">Answer ( @item.Title )</h4>
+                                            <textarea class="form-control" rows="15"></textarea>
+								        </div>
+							        </div>
+                                </div>
+                            </div>
+                            <!--end::Input-->
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="pb-5" data-wizard-type="step-content">
+                            <!--begin::Input-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card card-custom p-6">
+								        <div class="card-body">
+                                            <h4 class="mb-10 font-weight-bold text-dark">@item.Title</h4>
+                                            @Html.Raw(item.WritingTopic)
+								        </div>
+							        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card card-custom p-6">
+								        <div class="card-body">
+                                            <h4 class="mb-10 font-weight-bold text-dark">Answer ( @item.Title )</h4>
+                                            <textarea class="form-control" rows="15"></textarea>
+								        </div>
+							        </div>
+                                </div>
+                            </div>
+                            <!--end::Input-->
+                        </div>
+                    }
+                    <!--end::Wizard Step 1 Nav-->
+                    ++tabNumber;
+                }                
+                <!--end: Wizard Step 1-->
+                <!--begin: Wizard Actions-->
+                <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                    <div class="mr-2">
+                        <button type="button" class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-prev">Previous</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-submit">Submit</button>
+                        <button type="button" class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-next">Next</button>
+                    </div>
+                </div>
+                <!--end: Wizard Actions-->
+            </form>
+            <!--end: Wizard Form-->
+        </div>
+    </div>
+    <!--end: Wizard Body-->
+</div>
+<!--end: Wizard-->
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<link href="~/assets/css/pages/wizard/wizard-3.css" rel="stylesheet" type="text/css" />
+
+<script src="~/assets/js/pages/custom/wizard/wizard-3.js"></script><!--begin: Wizard-->

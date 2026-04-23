@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExamContext.OnlinePlacement.Aplication.Contracts\ExamContext.OnlinePlacement.Aplication.Contracts.csproj" />
+    <ProjectReference Include="..\ExamContext.OnlinePlacement.Domain\ExamContext.OnlinePlacement.Domain.csproj" />
+    <ProjectReference Include="..\Framework.Application\Framework.Application.csproj" />
+    <ProjectReference Include="..\Framework.Mapper\Framework.Mapper.csproj" />
+    <ProjectReference Include="..\IeltsContext.ReadModel.Context\ExamContext.ReadModel.Context.csproj" />
+  </ItemGroup>
+
+</Project>

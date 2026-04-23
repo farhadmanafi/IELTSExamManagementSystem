@@ -1,0 +1,9 @@
+﻿@font-face {
+    font-family: 'IRANSansWeb';
+    src: url('../fonts/IRANSansWeb.eot');
+    src: url('../fonts/IRANSansWeb.eot?#iefix') format('embedded-opentype'), url('../fonts/IRANSansWeb.woff') format('woff'), url('../fonts/IRANSansWeb.ttf') format('truetype'), url('../fonts/IRANSansWeb.svg#glyphicons_halflingsregular') format('svg');
+}
+
+*:not(i) {
+    font-family: 'IRANSansWeb' !important;
+}

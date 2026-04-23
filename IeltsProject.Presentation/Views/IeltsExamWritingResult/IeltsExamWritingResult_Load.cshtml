@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ExamContext.ReadModel.Queries.Contracts.WritingContext.WritingExamAggregate.DataContracts.WrtingExamUserAnswersPerSectionQueryFacade>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-custom">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon">
+                        <i class="flaticon2-chat-1 text-primary"></i>
+                    </span>
+                    <h3 class="card-label">
+                        Writing Exam Score
+                        @*<small>sub title</small>*@
+                    </h3>
+                </div>
+                <div class="card-toolbar">
+                    @*<a href="#" class="btn btn-sm btn-success font-weight-bold">
+                    <i class="flaticon2-cube"></i> Reports
+                    </a>*@
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="accordion accordion-toggle-arrow" id="accordionExample1">
+                    @foreach (var item in Model)
+                    {
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title" data-toggle="collapse" data-target="#collapseOne1">
+                                    @item.SectionTitle Section Result
+                                </div>
+                            </div>
+                            <div id="collapseOne1" class="collapse show" data-parent="#accordionExample1">
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="card col-md-6" style="">
+                                                @Html.Raw(item.WritingTopic)
+                                            </div>
+                                            <div class="card col-md-6" style="text-align:center">
+                                                @{
+                                                    var src = "https://userpanel.bpvielts.com/@item.AnswerText" + @item.AnswerText;
+                                                }
+                                                <a class="btn btn-bg-info" target="_blank" href="@src">مشاهده فایل</a>                                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <br />
+                <div class="col-md-12 text-center">
+                    <div class="alert alert-custom alert-outline-info fade show mb-5" role="alert">
+                        <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                        <div class="alert-text">Your score on this test is :  <strong style="font-size:medium">@ViewBag.WritingScore</strong> </div>
+                        <div class="alert-close">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="btn btn-info font-weight-bold" href="@Url.Action("IeltsExamParticipantDetail_Load", "CustomerIeltsExam", new { Id=ViewBag.ParticipantId})">Return</a>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExamContext.Listening.Facade.Contracts\ExamContext.Listening.Facade.Contracts.csproj" />
+    <ProjectReference Include="..\Framework.Facade\Framework.Facade.csproj" />
+  </ItemGroup>
+
+</Project>

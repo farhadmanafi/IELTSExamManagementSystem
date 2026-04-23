@@ -1,0 +1,171 @@
+﻿@model ExamContext.ReadModel.Queries.Contracts.ReadingContext.ReadingQuestionAggregate.DataContracts.ReadingQuestionQueryFacadeDto
+
+<div class="col-lg-12">
+    @using (Html.BeginForm("AddReadingQuestion", "IeltsExamReading", FormMethod.Post, new { id = "AddReadingQuestionFormValidation" }))
+    {
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class="container">
+                <div id="result"></div>
+                <!--begin::Card-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--begin::Advance Table Widget 3-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 py-5">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label font-weight-bolder text-dark">افزودن سوال جدید </span>
+                                </h3>
+                            </div>
+                            @if (ViewBag.HasError == true)
+                            {
+                                <div class="col" style="text-align:center">
+                                    <div class="alert alert-custom alert-outline-danger fade show mb-5" role="alert">
+                                        <div class="alert-icon"><i class="flaticon-danger"></i></div>
+                                        <div class="alert-text">@Html.ValidationMessage("AddReadingQuestionException")</div>
+                                        <div class="alert-close">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <input type="hidden" name="ReadingExamId" value="@ViewBag.ReadingExamId" />
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-0 pb-3">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>عنوان </label>
+                                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "عنوان ", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">عنوان را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>توضیح</label>
+                                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "توضیح", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">توضیح را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>ترتیب </label>
+                                            @Html.TextBoxFor(m => m.OrderNo, new { @class = "form-control form-control-solid1 form-control-lg", placeholder = "ترتیب ", autocomplete = "off", required = "required" })
+                                            <span class="form-text text-muted">ترتیب را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>نوع سوال </label>
+                                            @Html.DropDownListFor(m => m.ReadingQuestionTypeId, ViewBag.ReadingQuestionTypeList as SelectList, "..انتخاب کنید..", new { @class = "form-control form-control-solid form-control-lg" })
+                                            <span class="form-text text-muted">نوع سوال را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>بخش</label>
+                                            @Html.DropDownListFor(m => m.ReadingExamSectionId, ViewBag.ReadingExamSectionList as SelectList, "..انتخاب کنید..", new { @class = "form-control form-control-solid form-control-lg", id = "ReadingExamSectionId" })
+                                            <span class="form-text text-muted">بخش سوال را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group fv-plugins-icon-container">
+                                            <label>بلوک</label>
+                                            @Html.DropDownListFor(m => m.ReadingExamQuestionBlockId, Enumerable.Empty<SelectListItem>(), "..انتخاب کنید..", new { @class = "form-control form-control-solid form-control-lg", id = "ReadingExamQuestionBlock" })
+                                            <span class="form-text text-muted">بلوک سوال را وارد نمایید.</span>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-xl-4 col-lg-3 col-sm-4  col-form-label">تعیین وضعیت :</label>
+                                            <div class="col-lg-9 col-xl-8 col-sm-8 d-flex align-items-center">
+                                                <div class="checkbox-inline">
+                                                    <label class="checkbox">
+                                                        @Html.CheckBoxFor(m => m.IsActive, new { })
+                                                        <span></span>فعال
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button id="submitBtn" class="btn btn-lg font-weight-bolder btn-light-success"><i class="la la-file-import"></i>تایید</button>
+                                    <a href="/IeltsExamReading/ReadingQuestionList/@ViewBag.ReadingExamId " class="btn btn-lg font-weight-bolder btn-light-warning " data-dismiss="modal" aria-label="Close">
+                                        <i class="la la-file-export"></i>انصراف
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Advance Table Widget 3-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        }
+    </div>
+
+<style>  
+    .form-control-solid1 {
+        background-color: #eaeaea54;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/MySelect2.js"></script>
+
+<script src="~/FormValidation/ReadingExam/AddReadingQuestionFormValidation.js"></script>
+
+
+<script>
+    $('#ReadingExamSectionId').on('change', function () {
+        var ReadingExamSectionIdDropdown = $('#ReadingExamSectionId');
+        var ReadingExamQuestionBlockDropdown = $('#ReadingExamQuestionBlock');
+        //disable element drop down
+        ReadingExamSectionIdDropdown.prop('disabled', 'disabled');
+        ReadingExamQuestionBlockDropdown.prop('disabled', 'disabled');
+        //clear drop down of old element
+        ReadingExamQuestionBlockDropdown.empty();
+
+        var ReadingExamSectionId = $(this).val();
+
+        if (ReadingExamSectionId.length > 0) {
+            // retrieve data using a Url.Action() to construct url
+            var data = { "ReadingExamSectionId": ReadingExamSectionId }
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetReadingExamQuestionBlocListByReadingSectionId")",
+                //data: JSON.stringify(data),
+                data: data,
+                //contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    ReadingExamSectionIdDropdown.removeAttr('disabled');
+                    ReadingExamQuestionBlockDropdown.removeAttr('disabled');
+                    $.each(data, function (i, element) {
+                        //Create new option
+                        var option = '<option value="' + element.value + '">' + element.text + '</option>';
+                        ReadingExamQuestionBlockDropdown.append(option);
+                    });
+                },
+                failure: function (errMsg) {
+                    alert(errMsg);
+                }
+            });
+        }
+    });
+</script>

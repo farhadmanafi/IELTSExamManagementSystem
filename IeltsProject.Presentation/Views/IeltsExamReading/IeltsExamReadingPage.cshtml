@@ -1,0 +1,266 @@
+﻿@using Ielts.Common.GeneralClass
+@model IeltsProject.Presentation.Models.IeltsReadingExamViewModel
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <span class="card-icon">
+                <i class="flaticon2-chart text-primary"></i>
+            </span>
+            <h3 class="card-label">Reading Exam</h3>
+        </div>
+    </div>
+    <div class="card-body" id="bodyDiv">
+        <div class="row justify-content-center">
+            @if (ViewBag.HasError == true)
+            {
+                <div class="col" style="text-align:center">
+                    <div class="alert alert-custom alert-outline-danger fade show mb-5" role="alert">
+                        <div class="alert-icon"><i class="flaticon-danger"></i></div>
+                        <div class="alert-text">@Html.ValidationMessage("IeltsExamListeningPageException")</div>
+                        <div class="alert-close">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                using (Html.BeginForm("IeltsExamReadingPage", "IeltsExamReading", FormMethod.Post, new { @class = "col-md-12 form" ,id="IeltsExamReadingPage" }))
+                {
+                int m = 0;
+                var GroupByReadingExamSection = Model.IeltsReadingQuestionViewModel.OrderBy(a => a.ReadingExamSectionOrderNo).GroupBy(a => a.ReadingExamSectionId).ToList();
+                int GroupByReadingExamSectionCount = GroupByReadingExamSection.Count();
+                Guid GroupByReadingExamSectionCurrent = GroupByReadingExamSection[m].Key;
+
+                int n = 0;
+                var GroupByReadingExamQuestionBlock = Model.IeltsReadingQuestionViewModel.Where(a => a.ReadingExamSectionId == GroupByReadingExamSectionCurrent).GroupBy(a => a.ReadingExamQuestionBlockId).ToList();
+                int GroupByReadingExamQuestionBlockCount = GroupByReadingExamQuestionBlock.Count();
+                Guid GroupByReadingExamQuestionBlockCurrent = GroupByReadingExamQuestionBlock[n].Key;
+
+                <input type="hidden" name="ReadingExamId" value="@Model.ReadingExamId" />
+                    <input type="hidden" name="IeltsExamParticipantId" value="@Model.IeltsExamParticipantId" />
+                <div class="card-body col-md-12">
+                <br>
+                       @{                           
+                            bool openNewDiv = true;
+                            bool closeNewDiv = false;
+                       }
+                        @for (int i = 0; i < Model.IeltsReadingQuestionViewModel.Count; i++)
+                        {
+                            
+                                    @if (Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionId == GroupByReadingExamSectionCurrent)
+                                    {        
+                                        if (closeNewDiv)
+                                        {
+                                            @:</div>
+                                        }
+                                        if (closeNewDiv || openNewDiv){
+                                            @:<div class="example example-basic">
+                                            @:<div class="example-preview bgi-no-repeat gutter-b card-stretch row" style="background-position: right top; background-size: 30% auto; background-image: url(/assets/media/svg/shapes/abstract-1.svg)">                               
+                                        }
+                                         <div class="col-md-6" style="overflow: auto;">
+                                        @{
+                                            n = 0;
+                                            GroupByReadingExamQuestionBlock = Model.IeltsReadingQuestionViewModel.Where(a => a.ReadingExamSectionId == GroupByReadingExamSectionCurrent).OrderBy(a => a.ReadingExamQuestionBlockOrderNo).GroupBy(a => a.ReadingExamQuestionBlockId).ToList();
+                                            GroupByReadingExamQuestionBlockCount = GroupByReadingExamQuestionBlock.Count();
+                                            GroupByReadingExamQuestionBlockCurrent = GroupByReadingExamQuestionBlock[0].Key;
+                                        }
+                                        <span class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">@Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionTitle</span>
+                                        <br />
+                                        <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">@Html.Raw(Model.IeltsReadingQuestionViewModel[i].ReadingExamSectionReadingText)</p>
+                                            @{
+                                                ++m;
+                                                if (m < GroupByReadingExamSectionCount)
+                                                {
+                                                    GroupByReadingExamSectionCurrent = GroupByReadingExamSection[m].Key;
+                                                }
+                                                else
+                                                {
+                                                    GroupByReadingExamSectionCurrent = new Guid();
+                                                }
+                                            }
+                                            </div>
+                                            openNewDiv = true;
+                                            closeNewDiv = true;
+                                        }
+                                    @if (openNewDiv)
+                                    {
+                                            @:<div class="col-md-6">
+                                            openNewDiv = false;
+                                        }
+                                    @if (Model.IeltsReadingQuestionViewModel[i].ReadingExamQuestionBlockId == GroupByReadingExamQuestionBlockCurrent)
+                                    {
+                                        <span class="label label-inline label-light-success font-weight-bolder">@Model.IeltsReadingQuestionViewModel[i].ReadingExamQuestionBlockTitle</span>
+                                        <br />
+                                        <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">@Html.Raw(Model.IeltsReadingQuestionViewModel[i].ReadingExamQuestionBlockDescription)</p>
+                                        <div class="separator separator-dashed mt-5 mb-8"></div>
+                                        ++n;
+                                        if (n < GroupByReadingExamQuestionBlockCount)
+                                        {
+                                            GroupByReadingExamQuestionBlockCurrent = GroupByReadingExamQuestionBlock[n].Key;
+                                        }
+                                        else
+                                        {
+                                            GroupByReadingExamQuestionBlockCurrent = new Guid();
+                                        }
+                                    }
+
+                                    @if (Model.IeltsReadingQuestionViewModel[i].QuestionTypeId.ToString() == ReadingQuestionTypeList.RadioButton.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label>@Model.IeltsReadingQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            <div class="radio-inline">
+                                                @for (int j = 0; j < Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel.Count; j++)
+                                                {
+                                                    <label class="radio" style="padding:5px">
+                                                        @Html.RadioButtonFor(m => m.IeltsReadingQuestionViewModel[i].AnswerValue, Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerId, new { @class = "" })
+                                                        @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                                        &ensp;
+                                                        <span></span>
+                                                        @Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerTitle
+                                                    </label>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                    else if (Model.IeltsReadingQuestionViewModel[i].QuestionTypeId.ToString() == ReadingQuestionTypeList.CheckBox.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label>@Model.IeltsReadingQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            <div class="checkbox-inline">
+                                                @for (int j = 0; j < Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel.Count; j++)
+                                                {
+                                                    <label class="checkbox checkbox-square" style="padding:5px">
+                                                        @Html.CheckBoxFor(m => m.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].Checked, new { @class = "" })
+                                                        @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                                        &ensp;
+                                                        <span></span>
+                                                        @Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerTitle
+                                                    </label>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                    else if (Model.IeltsReadingQuestionViewModel[i].QuestionTypeId.ToString() == ReadingQuestionTypeList.ComboBox.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label>@Model.IeltsReadingQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @{
+                                                string selectId = "IeltsReadingQuestionViewModel_" + @i + "__QuestionId";
+                                                string selectName = "IeltsReadingQuestionViewModel[" + @i + "].AnswerValue";
+                                            }
+                                            <select id="@selectId" name="@selectName" class="form-control">
+                                                <option>
+                                                    -- select --
+                                                </option>
+                                                @for (int j = 0; j < Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel.Count; j++)
+                                                {
+                                                    <option value="@Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerId">
+                                                        @Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerTitle
+                                                    </option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                    else if (Model.IeltsReadingQuestionViewModel[i].QuestionTypeId.ToString() == ReadingQuestionTypeList.TextBox.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label>@Model.IeltsReadingQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].Value, new { @class = "form-control" })
+                                            @*@for (int j = 0; j < Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel.Count; j++)
+                                                {
+                                                <div>
+                                                <label>
+                                                @Model.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerTitle
+                                                @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                                @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].IeltsReadingAnswerViewModel[j].AnswerValue, new { @class = "form-control" })
+                                                </label>
+                                                </div>
+                                                }*@
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }
+                                    else if (Model.IeltsReadingQuestionViewModel[i].QuestionTypeId.ToString() == ReadingQuestionTypeList.TextArea.ToString())
+                                    {
+                                        <div class="form-group">
+                                            <label class="">@Model.IeltsReadingQuestionViewModel[i].QuestionTitle</label>
+                                            @Html.TextAreaFor(m => m.IeltsReadingQuestionViewModel[i].QuestionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.IeltsReadingQuestionViewModel[i].QuestionTypeId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                            @Html.TextAreaFor(m => m.IeltsReadingQuestionViewModel[i].Value, new { @class = "form-control" })
+                                        </div>
+                                        <div class="separator separator-dashed my-10"></div>
+                                    }                       
+                        }
+                        @if (true)
+                        {
+                            @:</div>
+                            @:</div>
+                            @:</div>
+                        }
+                       </div>  
+        }
+        }
+            <!--begin: Pricing-->
+            <!--end: Pricing-->
+        </div>
+    </div>
+</div>
+<div class="container" id="bottomFixDiv">
+    <div class="row ">
+        <div class="col-5 footerTimeBox">@await Component.InvokeAsync("_ExamTimerReading", new { id = Model.ReadingExamId })  </div>
+        <div class="col-5 footerTimeBox">
+            <button type="submit" class="btn btn-primary mr-2 btn-sm" form="IeltsExamReadingPage">Submit</button>
+            <a href="/" class="btn btn-secondary btn-sm">Cancel</a> 
+            </div>
+        </div>
+</div>
+
+
+
+<style>
+    .notshow {
+        display: none;
+    }
+    #bodyDiv
+    {
+        height:100%;
+        overflow-y:scroll;
+    }
+    #bottomFixDiv{
+            position: fixed; 
+            width:90%;
+            bottom:0;
+            padding:10px;
+        }
+</style>
+
+<style>
+    .footerTimeBox{
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.44);
+        border-radius: 6px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4.3px);
+        -webkit-backdrop-filter: blur(4.3px);
+        border: 1px solid rgba(255, 255, 255, 0.31);
+        padding:3px;
+        text-align: center;
+    }
+</style>
+
+
+
+

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExamContext.OnlinePlacement.Domain.Contracts\ExamContext.OnlinePlacement.Domain.Contracts.csproj" />
+    <ProjectReference Include="..\ExamContext.OnlinePlacement.Domain\ExamContext.OnlinePlacement.Domain.csproj" />
+    <ProjectReference Include="..\ExamContext.OnlinePlacement.Facade.Contracts\ExamContext.OnlinePlacement.Facade.Contracts.csproj" />
+    <ProjectReference Include="..\Framework.Facade\Framework.Facade.csproj" />
+  </ItemGroup>
+
+</Project>

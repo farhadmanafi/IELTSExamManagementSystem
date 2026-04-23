@@ -1,0 +1,88 @@
+﻿@using Ielts.Common.GeneralClass
+@model IeltsProject.Presentation.Models.IeltsWritingExamViewModel
+
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <span class="card-icon">
+                <i class="flaticon2-chart text-primary"></i>
+            </span>
+            <h3 class="card-label">Writing Exam</h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <!--begin: Pricing-->
+            @if (ViewBag.HasError == true)
+            {
+                <div class="col" style="text-align:center">
+                    <div class="alert alert-custom alert-outline-danger fade show mb-5" role="alert">
+                        <div class="alert-icon"><i class="flaticon-danger"></i></div>
+                        <div class="alert-text">@Html.ValidationMessage("IeltsExamWritingPageException")</div>
+                        <div class="alert-close">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @using (Html.BeginForm("IeltsExamWritingPage", "IeltsExamWriting", FormMethod.Post, new { @class = "col-md-12 form", enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="WritingExamId" value="@Model.WritingExamId" />
+                    <input type="hidden" name="IeltsExamParticipantId" value="@Model.IeltsExamParticipantId" />
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.IeltsWritingSectionViewModel.Count; i++)
+                        {
+                            <div class="example example-basic">
+                                <div class="example-preview bgi-no-repeat gutter-b card-stretch"
+                         style="background-position: right top; background-size: 30% auto; background-image: url(/assets/media/svg/shapes/abstract-3.svg)">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span class="label label-inline label-light-success font-weight-bolder">@Model.IeltsWritingSectionViewModel[i].SectionTitle</span>
+                                            <br />
+                                            <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">@Html.Raw(Model.IeltsWritingSectionViewModel[i].WritingTopic)</p>
+                                            <div class="separator separator-dashed mt-5 mb-8"></div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="">@Model.IeltsWritingSectionViewModel[i].SectionTitle (Upload File)</label>
+                                                @Html.TextBoxFor(m => m.IeltsWritingSectionViewModel[i].SectionId, new { @class = "form-control notshow", @readonly = "readonly" })
+                                                @Html.TextBoxFor(m => m.IeltsWritingSectionViewModel[i].File, new { @class = "form-control", type = "file" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-5">@await Component.InvokeAsync("_ExamTimerWriting" , new { id = Model.WritingExamId })</div>
+                            <div class="col-lg-7">
+                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                <a href="/" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            <!--end: Pricing-->
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .notshow {
+        display: none;
+    }
+</style>
+
+
+
+

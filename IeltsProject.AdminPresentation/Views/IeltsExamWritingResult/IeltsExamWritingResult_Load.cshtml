@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ExamContext.ReadModel.Queries.Contracts.WritingContext.WritingExamAggregate.DataContracts.WrtingExamUserAnswersPerSectionQueryFacade>
+<div class="card card-custom">
+    <div class="card-header">
+        <div class="card-title">
+            <span class="card-icon">
+                <i class="flaticon2-chat-1 text-primary"></i>
+            </span>
+            <h3 class="card-label">
+                نتایج آزمون Writing
+                @*<small>sub title</small>*@
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            @*<a href="#" class="btn btn-sm btn-success font-weight-bold">
+                    <i class="flaticon2-cube"></i> Reports
+                </a>*@
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="accordion accordion-toggle-arrow" id="accordionExample1">
+            @foreach (var item in Model)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapseOne1">
+                            نتایج بخش @item.SectionTitle
+                        </div>
+                    </div>
+                    <div id="collapseOne1" class="collapse show" data-parent="#accordionExample1">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="card col-md-6" style="">
+                                        @Html.Raw(item.WritingTopic)
+                                    </div>
+                                    <div class="card col-md-6" style="text-align:center">
+                                        <a class="btn btn-bg-info" target="_blank" href="@item.AnswerText">مشاهده فایل</a>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @if (ViewBag.HasWritingScore == false)
+    {
+        <form method="post" asp-action="AddScore" asp-controller="IeltsExamWritingResult">
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>نمره انتخابی</label>
+                        <input type="hidden" name="CustomerId" value="@ViewBag.CustomerId">
+                        <input type="hidden" name="IeltsExamParticipantsId" value="@ViewBag.IeltsExamParticipantsId">
+                        <select name="WritingExamScore" class="form-control" asp-items="@ViewBag.Scores"> </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <button type="submit" class="btn btn-light-primary font-weight-bold">ثبت نمره</button>
+                <a href="@Url.Action("IeltsExamParticipantResult_Load", "IeltsExamResult", new { customerId=ViewBag.CustomerId, ieltsExamParticipantsId= ViewBag.IeltsExamParticipantsId})" class="btn btn-outline-secondary font-weight-bold">بازگشت</a>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div style="text-align:center">
+            <div class="alert alert-custom alert-outline-info fade show mb-5" role="alert">
+                <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                <div class="alert-text">نمره شما در این آزمون  <strong style="font-size:medium">@ViewBag.WritingScore</strong>  ثبت شده است</div>
+                <div class="alert-close">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <a style="float:left" href="@Url.Action("IeltsExamParticipantResult_Load", "IeltsExamResult", new { customerId=ViewBag.CustomerId, ieltsExamParticipantsId= ViewBag.IeltsExamParticipantsId})" class="btn btn-outline-secondary font-weight-bold">بازگشت</a>
+    }
+</div>

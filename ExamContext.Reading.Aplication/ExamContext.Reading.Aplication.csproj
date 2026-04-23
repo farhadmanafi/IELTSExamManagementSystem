@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExamContext.Reading.Aplication.Contracts\ExamContext.Reading.Aplication.Contracts.csproj" />
+    <ProjectReference Include="..\ExamContext.Reading.Domain\ExamContext.Reading.Domain.csproj" />
+    <ProjectReference Include="..\Framework.Application\Framework.Application.csproj" />
+    <ProjectReference Include="..\Framework.Mapper\Framework.Mapper.csproj" />
+  </ItemGroup>
+
+</Project>
