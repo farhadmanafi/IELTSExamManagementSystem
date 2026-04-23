@@ -47,3 +47,18 @@ Perfect for institutes and exam centers who want an organized and automated mana
 ---
 
 ## 🧱 Project Structure
+📁 IELTSManagement
+
+├── 🧠 Domain
+
+├── ⚙️ Application
+
+├── 🧱 Infrastructure
+
+├── 🌐 Presentation
+
+│ ├── Admin Panel
+
+│ └── Front Panel
+
+└── 📦 Tests
